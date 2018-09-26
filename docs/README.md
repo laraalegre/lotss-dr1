@@ -1,42 +1,59 @@
-#  PyBDSF-Optical associations over the HETDEX field
+# LoTSS-DR1
 
-LoTSS-DR1 is the first public data release of the LOFAR Two-metre Sky Survey (LoTSS, Shimwell2017). LoTSS-DR1 (described in Shimwell et al. 2018) surveys the HETDEX field.
+LoTSS-DR1 is the first public data release of the **LOFAR Two-metre Sky Survey** (LoTSS, Shimwell2017). LoTSS-DR1 (described in Shimwell et al. 2018) surveys the **HETDEX** field.
 
-> The source detection in LoTSS-DR1 is performed using the Python Blob Detector and Source Finder Software (PyBDSF, mohan2015), by fitting  Gaussians to pixel islands. This generates components rather than true sources. For that reason, the identification of LOFAR radio sources as well as the cross-matching with optical counterparts (Pan-STARRS and WISE) was achieved using a combination of statistical likelihood ratio techniques and visual inspection via a private LOFAR Galaxy Zoo (LGZ) classification project (described in Williams et al. 2018).
+The source detection in LoTSS-DR1 is performed using the Python Blob Detector and Source Finder Software (**PyBDSF**, Mohan et al. 2015), by fitting Gaussians to pixel islands. This generates components rather than true sources. For that reason, the identification of LOFAR radio sources as well as the cross-matching with optical counterparts (Pan-STARRS and WISE) was achieved using a combination of statistical likelihood ratio techniques and visual inspection via a private LOFAR Galaxy Zoo (LGZ) classification project (described in Williams et al. 2018).
 
-Here we present the connection between each of the raw PyBDSF sources and the final optical associations:
-
-* The jupyter notebook can be downloaded <a href="PyBDSF_DR1_associations.ipynb">here</a>. 
-* A table with the output of the notebook can be downloaded <a href="output_table.fits">here</a>. 
+> The **PyBDSF-Optical associations over the HETDEX field** was made with a Jupyter notebook (available for download). Here we present the connection between each of the raw PyBDSF sources and the final optical associations. 
 
 ***
 
 # Catalogues
 
-## Catalogues used (available soon)
+All catalogues will be available on LoTSS-DR1 page (available soon). 
+
+## Input catalogues
 
 * PyBDSF raw catalogue 
 * PyBDSF components catalogue
 * Optical associations catalogue (Pan-STARRS and All WISE)
 * Artifacts catalogue
 
-### Cleaning the Catalogues
+#### Cleaning the Catalogues
 
 * A source was picked on 2 different mosaics (same 'Source_Name') and was classified as an artifact in one mosaic and as a source in other. This source was renamed with the original name followed by 'B'. This was done on both **Artifacts catalogue** and **PyBDSF raw catalogue** (the source appears twice on the PyBDSF raw catalogue).
 * Duplicated entries were removed from the PyBDSF **components catalogue** (9 duplicated 'Source_Name' and 'Component_Name' for the same source).
 * A source on the PyBDSF **components catalogue** was removed because it is an artifact ('Component_Name' is on the artifact catalogue).
 
-For more details see section `Catalogues` of the notebook.
+For more details see section Catalogues of the notebook.
 
 ## Output Catalogue
 
-The notebook creates an output table (`output_table.fits`) with 3 columns: 
+The notebook creates an output table with 3 columns: 
 
 * **pybdsf_name**: original PyBDSF source names (as in the PyBDSF raw catalogue)
 * **association_name**: optical name (as in the optical associations catalogue) or lackof association (null) 
 * **flag**: category of the sources. 
 
-The PyBDSF-optical relation comprises 4 main categories:
+### Flags
+
+| category                 | selection                               | flag  | n PyBDSF  | n optical |
+|:-------------------------|:----------------------------------------|:------|:----------|-----------|
+| Single sources           | Unique PyBDSF-optical correspondence    |   1   | 313161    | 313161    |
+| Deblending problems      | Not deblended                           |   2   | 0         | 0         |
+| Single + not deblended   | combination of flags 1 and 2            |   3   | 10        | 10        |
+| Deblended sources        | Multiple PyBDSF-optical correspondences |   4   | 832       | 1575      |
+| Multi-component PyBDSF   | Merged PyBDSF-optical correspondences   |   8   | 9007      | 3565      |
+| Deblended + Multi-comp.  | Combination of flgas 4 and 8            |   12  | 193       | 209       |
+| Artifacts                | Artifact catalogue                      |   16  | 2543      | 2543      |
+| Artifacts                | PyBDSF missing in optical catalogue     |   32  | 48        | 48        |
+
+
+***
+
+# Sources
+
+The PyBDSF-optical associations comprise 4 main source categories:
 
 * **Deblended sources**: PyBDSF sources that were deblended into 2 or more optical sources
 * **Multi-component PyBDSF sources** : optical sources composed by Multiple PyBDSF components
@@ -44,10 +61,6 @@ The PyBDSF-optical relation comprises 4 main categories:
 * **Artifacts**: PyBDSF sources that are artifacts
 
 The flags as well as the combination of flags is explained next.
-
-***
-
-# Sources
 
 ## Deblended sources
 
@@ -90,20 +103,11 @@ There are a total of 2591 PyBDSF sources classified as artifacts in the output t
 
 ***
 
-# Flags
+# Downloads 
 
-| category                 | selection                               | flag  | n PyBDSF  | n optical |
-|:-------------------------|:----------------------------------------|:------|:----------|-----------|
-| Single sources           | Unique PyBDSF-optical correspondence    |   1   | 313161    | 313161    |
-| Deblending problems      | Not deblended                           |   2   | 0         | 0         |
-| Single + not deblended   | combination of flags 1 and 2            |   3   | 10        | 10        |
-| Deblended sources        | Multiple PyBDSF-optical correspondences |   4   | 832       | 1575      |
-| Multi-component PyBDSF   | Merged PyBDSF-optical correspondences   |   8   | 9007      | 3565      |
-| Deblended + Multi-comp.  | Combination of flgas 4 and 8            |   12  | 193       | 209       |
-| Artifacts                | Artifact catalogue                      |   16  | 2543      | 2543      |
-| Artifacts                | PyBDSF missing in optical catalogue     |   32  | 48        | 48        |
+* A jupyter notebook used to perform the associations can be downloaded <a href="PyBDSF_DR1_associations.ipynb">here</a>. 
+* A table with the output of the notebook can be downloaded <a href="output_table.fits">here</a>. 
 
-***
 
 
 
