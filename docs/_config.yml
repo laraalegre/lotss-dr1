@@ -1,1 +1,4 @@
-theme: jekyll-theme-tactile
+title: LoTSS DR1
+description: Correspondence between PyBDSF raw sources and the final optical catalogue
+show_downloads: true
+theme: jekyll-theme-leap-day
