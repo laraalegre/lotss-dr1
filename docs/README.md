@@ -100,8 +100,8 @@ There are a total of 2591 PyBDSF sources classified as artifacts in the output t
 
 # Downloads 
 
-* A jupyter notebook used to perform the associations can be downloaded <a href="lotss-dr1/PyBDSF_DR1_associations.ipynb">here</a>. 
-* A table with the output of the notebook can be downloaded <a href="lotss-dr1/output_table.fits">here</a>. 
+* A jupyter notebook used to perform the associations can be downloaded <a href="../PyBDSF_DR1_associations.ipynb">here</a>. 
+* A table with the output of the notebook can be downloaded <a href="../output_table.fits">here</a>. 
 
 
 
