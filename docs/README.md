@@ -1,4 +1,6 @@
 
+# Intro 
+
 LoTSS-DR1 is the first public data release of the **LOFAR Two-metre Sky Survey** (LoTSS, Shimwell et al. 2017). LoTSS-DR1 (described in Shimwell et al. 2018) surveys the **HETDEX** field.
 
 The source detection in LoTSS-DR1 is performed using the Python Blob Detector and Source Finder Software (**PyBDSF**, Mohan et al. 2015) which fits Gaussians to pixel islands. This generates components rather than true sources. For that reason, the identification of LOFAR radio sources as well as the cross-matching with optical counterparts (Pan-STARRS and WISE) was achieved using a combination of statistical likelihood ratio techniques and visual inspection via a private LOFAR Galaxy Zoo (LGZ) classification project (described in Williams et al. 2018).
@@ -37,7 +39,7 @@ The notebook creates an output table with 3 columns:
 
 ### Output Flags
 
-| Category                 | Selection                               | Flag  | nr of PyBDSF  | nr of optical |
+| Category                 | Selection                               | Flag  | nr PyBDSF     | nr optical    |
 |:-------------------------|:----------------------------------------|:------|:--------------|---------------|
 | Single sources           | Unique PyBDSF-optical correspondence    |   1   | 313161        | 313161        |
 | Deblending problems      | Not deblended                           |   2   | 0             | 0             |
@@ -72,23 +74,17 @@ The total number of sources that were deblended is:
 * Number of correspondent optical sources: 1784
 * Number of entries on the table: 1822
 
-This corresponds to sources that went through the deblending process only (832 PyBDSF components, 1575 optical sources, `flag 4`) and deblended sources where the PyBDSF components were associated after deblending (193 optical sources, 209 PyBDSFs, `flag 12`, see Multi-component PyBDSF sources below for more details). The selection of these sources is made in the section 'Deblended sources' of the notebook.
+These numbers correspond to sources that went through the deblending process only (832 PyBDSF components, 1575 optical sources, `flag 4`, 1575 entries on the table) and deblended sources where multiple PyBDSF components were associated after deblending (209 optical sources, 193 PyBDSFs, `flag 12`, 247 entries on the table, see Multi-component PyBDSF sources below). Note that you will find common PyBDSFs sources with both flags (but different association names). The selection of these sources is made in the section 'Deblended sources' of the notebook.
 
-TO CHECK:  (832 PyBDSF components deblended at least into 2 sources makes 1664)
+
 
 
 ## Multi-component PyBDSF sources
 
 Multi-components PyBDSF sources correspond to optical sources that are composed by more than one PyBDSF component. These were selected from the components catalogue looking for optical sources with more than one PyBDFS component associated (3565 optical sources, 9007 PyBDSFs, `flag 8`, see section 'Multi-component PyBDSF sources' of the notebook).
 
-Additionally, there are sources that were associated with other PyBDSFs after having been through a deblending process (193 optical sources, 209 PyBDSFs, `flag 12`). 
-
-
-TO CHECK: 
-
-- A total of 3774 optical sources are composed by more than one PyBDSF component and 9868 PyBDSF components make up these 3774 sources. Note that some optical sources can have up to 35 PyBDSF components and also that included in these numbers are the sources that went also through the deblending process (flag = 8 and flag = 12). 
-- Check this: A total of 9255 PyBDSF sources are classified as 'multi-components' in the output table.
-(but not have been deblended) - I think this number is just a prediction
+Additionally, there are sources that were associated with other PyBDSFs after having been through a deblending process (`flag 12`). 
+Therefore, there are a total of 9254 entries on the output table that correspond to optical sources made up of multiple PyBDSF components (flags 12 and 8, 3774 optical sources and 9200 PyBDSFs). 
 
 
 ## Single sources 
