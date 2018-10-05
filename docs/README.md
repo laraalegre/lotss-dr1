@@ -11,14 +11,14 @@ The LoTSS-DR1 connection between each raw PyBDSF source and the final optical as
 
 # Catalogues
 
-All catalogues will be available on LoTSS-DR1 webpage. 
+Here we use the **version 1.2 of the optical and components catalogues**, version 0.9 of the raw PyBDSF catalogue, and version 1.1 of the artifacts catalogue. All catalogues will be available on LoTSS-DR1 webpage. 
 
 ## Input catalogues
 
-* PyBDSF raw catalogue 
-* PyBDSF components catalogue
-* Optical associations catalogue (Pan-STARRS and WISE)
-* Artifacts catalogue
+* PyBDSF raw catalogue (LOFAR_HBA_T1_DR1_catalog_v0.9.srl.fixed.fits)
+* PyBDSF components catalogue (LOFAR_HBA_T1_DR1_merge_ID_v1.2.comp.fits)
+* Optical associations catalogue (Pan-STARRS and WISE) (LOFAR_HBA_T1_DR1_merge_ID_optical_f_v1.2.fits)
+* Artifacts catalogue (LOFAR_HBA_T1_DR1_merge_ID_v1.1.art.fits)
 
 #### Cleaning the Catalogues
 
@@ -39,16 +39,17 @@ The notebook creates an output table with 3 columns:
 
 ### Output Flags
 
-| Category                 | Selection                               | Flag  | nr PyBDSF     | nr optical    |
-|:-------------------------|:----------------------------------------|:------|:--------------|---------------|
-| Single sources           | Unique PyBDSF-optical correspondence    |   1   | 313161        | 313161        |
-| Deblending problems      | Not deblended                           |   2   | 0             | 0             |
-| Single + not deblended   | combination of flags 1 and 2            |   3   | 10            | 10            |
-| Deblended sources        | Multiple PyBDSF-optical correspondences |   4   | 832           | 1575          |
-| Multi-component PyBDSF   | Merged PyBDSF-optical correspondences   |   8   | 9007          | 3565          |
-| Deblended + Multi-comp.  | Combination of flags 4 and 8            |   12  | 193           | 209           |
-| Artifacts                | Artifact catalogue                      |   16  | 2543          | 2543          |
-| Artifacts                | PyBDSF missing in the optical catalogue |   32  | 48            | 48            |
+| Category                 | Selection                               | Flag  | nr PyBDSF     | nr optical    | n entries |
+|:-------------------------|:----------------------------------------|:------|:--------------|---------------|-----------|
+| Single sources           | Unique PyBDSF-optical correspondence    |   1   | 313161        | 313161        |313161     | 
+| Deblending problems      | Not deblended                           |   2   | 0             | 0             |0          |
+| Single + not deblended   | combination of flags 1 and 2            |   3   | 10            | 10            |10         |
+| Deblended sources        | Multiple PyBDSF-optical correspondences |   4   | 883           | 1753          |1753       |
+| Multi-component PyBDSF   | Merged PyBDSF-optical correspondences   |   8   | 9007          | 3565          |9007       |
+| Multi + not deblended    | combination of flags 8 and 2            |   10  | 30            | 26            |30         |
+| Deblended + Multi-comp.  | Combination of flags 4 and 8            |   12  | 35            | 31            |39         |
+| Artifacts                | Artifact catalogue                      |   16  | 2543          | 0             |2543       |
+| Artifacts                | PyBDSF missing in the optical catalogue |   32  | 48            | 0             |48         |
 
 
 ***
@@ -57,35 +58,49 @@ The notebook creates an output table with 3 columns:
 
 The PyBDSF-optical associations comprise 4 main source categories:
 
+* **Multi-component PyBDSF sources**: optical sources composed by Multiple PyBDSF sources
 * **Deblended sources**: PyBDSF sources that were deblended into 2 or more optical sources
-* **Multi-component PyBDSF sources**: optical sources composed by Multiple PyBDSF components
-* **Single sources**: optical sources composed by a single PyBDSF component
+* **Single sources**: optical sources composed by a single PyBDSF source
 * **Artifacts**: PyBDSF sources that are artifacts
-
-
-## Deblended sources
-
-Deblended sources are sources that were originally identified by the PyBDSF software as being only one source and require deblending. 
-These sources were sent to a deblending workflow (ID_flag 41) or selected for deblending on LGZ (ID_flag 42). See Williams et al. 2018 for details (available soon). However, some of the sources were not actually deblended and some were deblended after association into a bigger source. For that reason, the association between the raw PyBDSF sources and the final optical sources was made through the components catalogue, using the columns 'Deblended_from' (which links directly to the PyBDSF original source names) and the 'Source_Name' (which links directly to the optical source names). 
-
-The total number of sources that were deblended is:
-
-* Number of PyBDSF components that were deblended: 925
-* Number of correspondent optical sources: 1784
-* Number of entries on the table: 1822
-
-These numbers correspond to sources that went through the deblending process only (832 PyBDSF components, 1575 optical sources, `flag 4`, 1575 entries on the table) and deblended sources where multiple PyBDSF components were associated after deblending (209 optical sources, 193 PyBDSFs, `flag 12`, 247 entries on the table, see Multi-component PyBDSF sources below). Note that you will find common PyBDSFs sources with both flags (but different association names). The selection of these sources is made in the section 'Deblended sources' of the notebook.
-
-
 
 
 ## Multi-component PyBDSF sources
 
-Multi-components PyBDSF sources correspond to optical sources that are composed by more than one PyBDSF component. These were selected from the components catalogue looking for optical sources with more than one PyBDFS component associated (3565 optical sources, 9007 PyBDSFs, `flag 8`, see section 'Multi-component PyBDSF sources' of the notebook).
+Multi-components PyBDSF sources correspond to optical sources that are composed by more than one PyBDSF source. These were selected from the components catalogue searching for optical sources with more than one PyBDFS component associated (9007 PyBDSFs, 3565 optical sources, `flag 8`, see section 'Multi-component PyBDSF sources' of the notebook).
 
-Additionally, there are sources that were associated with other PyBDSFs after having been through a deblending process (`flag 12`). 
-Therefore, there are a total of 9254 entries on the output table that correspond to optical sources made up of multiple PyBDSF components (flags 12 and 8, 3774 optical sources and 9200 PyBDSFs). 
+Notes: 
+* 1076 optical sources are made up of more than 2 PyBDSF components, and the number of PyBDSF components can go up to 35 to make up one optical source.
+* Additionally, there are sources that were associated with other PyBDSFs after having been through a deblending process (`flag 12`), which are explained in the 'Deblended sources'. 
 
+## Deblended sources
+
+Deblended sources are sources that were originally identified by PyBDSF as being only one source and required deblending. 
+These sources were sent to a deblending workflow (ID_flag 41) or selected for deblending on LGZ (ID_flag 42). See Williams et al. 2018 for details (available soon). However, some of the sources were not actually deblended and some were deblended after association into a bigger source. For that reason, the association between the raw PyBDSF sources and the final optical sources was made through the components catalogue, using the columns 'Deblended_from' (which links directly to the PyBDSF original source names) and the 'Source_Name' (which links directly to the optical source names). 
+
+PyBDSF sources that went only through the deblending process: 832 PyBDSF components, 1575 optical sources, `flag 4`, 1575 entries on the table. 
+
+Notes: 
+* Most of these PyBDSF sources were deblended into to 2 optical sources but 12 were deblended into 3 optical sources.
+* There are PyBDSF sources that were have both flags = 4 and flag = 12. - Explain numbers
+
+
+### Sources that were both deblended and have multi PyBDSF components
+
+Deblended sources where multiple PyBDSF components were associated after deblending (31 optical sources, 35 PyBDSFs, `flag 12`, 39 entries on the table. Note that we find common PyBDSFs sources with both flags (but different association names). The selection of these sources is made in the section 'Deblended sources' of the notebook.
+
+Explain numbers
+
+### Sources that were not deblended
+
+These correspond to PyBDSF sources that have 'Deblended_from' column but just have an optical source correspondence.
+
+####  MULTIPLE PyBDSF COMPONENTS
+
+Explain numbers
+
+####  SINGLES
+
+Explain numbers
 
 ## Single sources 
 
@@ -102,8 +117,3 @@ There are a total of 2591 PyBDSF sources classified as artifacts in the output t
 
 * A jupyter notebook used to perform the associations can be downloaded <a href="https://github.com/laraalegre/lotss-dr1/blob/master/PyBDSF_DR1_associations.ipynb">here</a>. 
 * A table with the output of the notebook can be downloaded <a href="https://github.com/laraalegre/lotss-dr1/blob/master/output_table.fits">here</a>. 
-
-
-
-
-
