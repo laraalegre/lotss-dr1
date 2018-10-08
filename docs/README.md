@@ -19,6 +19,7 @@ Here we use the **version 1.2 of the optical and components catalogues, version 
 * PyBDSF components catalogue (LOFAR_HBA_T1_DR1_merge_ID_v1.2.comp.fits)
 * Optical associations catalogue (Pan-STARRS and WISE) (LOFAR_HBA_T1_DR1_merge_ID_optical_f_v1.2.fits)
 * Artifacts catalogue (LOFAR_HBA_T1_DR1_merge_ID_v1.1.art.fits)
+* Gaussian catalogue (LOFAR_HBA_T1_DR1_catalog_v0.99.gaus.fits)
 
 #### Cleaning the Catalogues
 
