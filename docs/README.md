@@ -112,6 +112,6 @@ There are a total of 2591 PyBDSF sources classified as artifacts in the output t
 
 # Downloads 
 
-* The jupyter notebook used to clean the original catalogues can be downloaded <a href="https://github.com/laraalegre/lotss-dr1/blob/master/PyBDSF_DR1_clean_catalogues.ipynb">here</a>
+* The jupyter notebook used to clean the catalogues can be downloaded <a href="https://github.com/laraalegre/lotss-dr1/blob/master/PyBDSF_DR1_clean_catalogues.ipynb">here</a>
 * The jupyter notebook used to perform the associations can be downloaded <a href="https://github.com/laraalegre/lotss-dr1/blob/master/PyBDSF_DR1_associations.ipynb">here</a>. 
 * A table with the output of the notebook can be downloaded <a href="https://github.com/laraalegre/lotss-dr1/blob/master/pybdsf_associations.fits">here</a>. 
