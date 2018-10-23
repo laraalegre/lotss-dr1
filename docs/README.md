@@ -5,7 +5,7 @@ LoTSS-DR1 is the first public data release of the **LOFAR Two-metre Sky Survey**
 
 The source detection in LoTSS-DR1 is performed using the Python Blob Detector and Source Finder Software (**PyBDSF**, Mohan et al. 2015) which fits Gaussians to pixel islands. This generates components rather than true sources. For that reason, the identification of LOFAR radio sources as well as the cross-matching with optical counterparts (Pan-STARRS and WISE) was achieved using a combination of statistical likelihood ratio techniques and visual inspection via a private LOFAR Galaxy Zoo (LGZ) classification project (described in Williams et al. 2018).
 
-The LoTSS-DR1 connection between each raw PyBDSF source and the final optical associations (or lack of association), is explained in a Jupyter notebook ([available for download](# Downloads)). The input and output catalogues are explained next. 
+The LoTSS-DR1 connection between each raw PyBDSF source and the final optical associations (or lack of association), is explained in a Jupyter notebook (avalilable in the **Downloads** section). The input and output catalogues are explained next. 
 
 ***
 
@@ -27,12 +27,12 @@ Here we use the **version 1.2 of the optical and components catalogues, version 
 * Duplicated entries were removed from the PyBDSF **components catalogue** (9 duplicated 'Source_Name' and 'Component_Name' refering to the same source).
 * A source on the PyBDSF **components catalogue** was removed because it is an artifact ('Component_Name' is on the artifact catalogue).
 
-For more details see notebook [**_PyBDSF_DR1_clean_catalogues.ipynb_**](# Downloads).
+For more details see notebook **_PyBDSF_DR1_clean_catalogues.ipynb_**.
 
 
 ## Output Catalogue: PyBDSF-DR1 Associations
 
-The notebook [**_PyBDSF_DR1_associations.ipynb_**](# Downloads). creates an output table with 3 columns: 
+The notebook **_PyBDSF_DR1_associations.ipynb_**. creates an output table with 3 columns: 
 
 * **pybdsf_name**: original PyBDSF source names (as in the PyBDSF raw catalogue).
 * **association_name**: optical name (as in the optical associations catalogue) or lack of association (null). 
@@ -113,6 +113,6 @@ There are a total of 2591 PyBDSF sources classified as artifacts in the output t
 
 # Downloads 
 
-* The jupyter notebook used to clean the catalogues can be downloaded <a href="https://github.com/laraalegre/lotss-dr1/blob/master/PyBDSF_DR1_clean_catalogues.ipynb">here</a>
-* The jupyter notebook used to perform the associations can be downloaded <a href="https://github.com/laraalegre/lotss-dr1/blob/master/PyBDSF_DR1_associations.ipynb">here</a>. 
-* A table with the output of the notebook can be downloaded <a href="https://github.com/laraalegre/lotss-dr1/blob/master/pybdsf_associations.fits">here</a>. 
+* The jupyter notebook used to clean the catalogues (**_PyBDSF_DR1_clean_catalogues.ipynb_**) can be downloaded <a href="https://github.com/laraalegre/lotss-dr1/blob/master/PyBDSF_DR1_clean_catalogues.ipynb">here</a>
+* The jupyter notebook used to perform the associations (**_PyBDSF_DR1_associations.ipynb_**) can be downloaded <a href="https://github.com/laraalegre/lotss-dr1/blob/master/PyBDSF_DR1_associations.ipynb">here</a>. 
+* The catalogue of the pybdsf associations can be downloaded <a href="https://github.com/laraalegre/lotss-dr1/blob/master/pybdsf_associations.fits">here</a>. 
