@@ -5,12 +5,13 @@ LoTSS-DR1 is the first public data release of the **LOFAR Two-metre Sky Survey**
 
 The source detection in LoTSS-DR1 is performed using the Python Blob Detector and Source Finder Software (**PyBDSF**, Mohan et al. 2015) which fits Gaussians to pixel islands. This generates components rather than true sources. For that reason, the identification of LOFAR radio sources as well as the cross-matching with optical counterparts (Pan-STARRS and WISE) was achieved using a combination of statistical likelihood ratio techniques and visual inspection via a private LOFAR Galaxy Zoo (LGZ) classification project (described in Williams et al. 2018).
 
-The LoTSS-DR1 connection between each raw PyBDSF source and the final optical associations (or lack of association), is explained in a Jupyter notebook (available for download). The input and output catalogues are explained next. 
+The LoTSS-DR1 connection between each raw PyBDSF source and the final optical associations (or lack of association), is explained in a Jupyter notebook ([available for download])(#Downloads). The input and output catalogues are explained next. 
+
 ***
 
 # Catalogues
 
-Here we use the **version 1.2 of the optical and components catalogues, version 0.9 of the raw PyBDSF sources, version 0.99 of the Gaussians catalogue, and version 1.1 of the artifacts catalogue**. All catalogues will be available on LoTSS-DR1 webpage. 
+Here we use the **version 1.2 of the optical and components catalogues, version 0.9 of the raw PyBDSF sources, version 0.99 of the Gaussians catalogue, and version 1.1 of the artifacts catalogue**. All catalogues are available on LoTSS-DR1 webpage. 
 
 ## Input catalogues
 
@@ -26,15 +27,15 @@ Here we use the **version 1.2 of the optical and components catalogues, version 
 * Duplicated entries were removed from the PyBDSF **components catalogue** (9 duplicated 'Source_Name' and 'Component_Name' refering to the same source).
 * A source on the PyBDSF **components catalogue** was removed because it is an artifact ('Component_Name' is on the artifact catalogue).
 
-For more details see notebook **_PyBDSF_DR1_clean_catalogues.ipynb_**.
+For more details see notebook [**_PyBDSF_DR1_clean_catalogues.ipynb_**](#Downloads).
 
 
-## PyBDSF-DR1 Associations Catalogue
+## Output Catalogue: PyBDSF-DR1 Associations
 
-The notebook **_PyBDSF_DR1_associations.ipynb_**. creates an output table with 3 columns: 
+The notebook [**_PyBDSF_DR1_associations.ipynb_**](#Downloads). creates an output table with 3 columns: 
 
 * **pybdsf_name**: original PyBDSF source names (as in the PyBDSF raw catalogue).
-* **association_name**: optical name (as in the optical associations catalogue) or lackof association (null). 
+* **association_name**: optical name (as in the optical associations catalogue) or lack of association (null). 
 * **flag**: category of the sources. 
 
 
@@ -59,7 +60,7 @@ The notebook **_PyBDSF_DR1_associations.ipynb_**. creates an output table with 3
 
 # Sources
 
-The PyBDSF-optical associations comprise 4 main source categories:
+The PyBDSF-optical associations catalogue comprise 4 main source categories:
 
 * **Multi-component PyBDSF sources**: optical sources composed by Multiple PyBDSF sources
 * **Deblended sources**: PyBDSF sources that were deblended into 2 or more optical sources
@@ -89,7 +90,7 @@ Notes:
 * Most of the PyBDSF sources were deblended into to 2 optical sources but 12 were deblended into 3 optical sources.
 * The total number of deblended sources ( `flag 4` and  `flag 12`) is 883 PyBDSF sources (23 PyBDSFs common to both flags), making up a total of 1780 optical sources.
 
-### Sources that were both deblended and have multi PyBDSF components
+#### Sources that were both deblended and have multi PyBDSF components
 
 Deblended sources where multiple PyBDSF components were associated after deblending (30 optical sources, 26 PyBDSFs, `flag 12`, 30 entries on the table. The selection of these sources is made in the section 'Deblended sources' of the notebook.
 
