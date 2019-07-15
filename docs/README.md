@@ -1,11 +1,13 @@
 
 # Intro 
 
-LoTSS-DR1 is the first public data release of the **LOFAR Two-metre Sky Survey** (LoTSS, Shimwell et al. 2017). LoTSS-DR1 (described in Shimwell et al. 2018) surveys the **HETDEX** field.
+LoTSS-DR1 is the first public data release of the **LOFAR Two-metre Sky Survey** (LoTSS, <a  href="https://ui.adsabs.harvard.edu/abs/2017A%26A...598A.104S/abstract">Shimwell et al. 2017</a>). LoTSS-DR1 (described in <a href="https://ui.adsabs.harvard.edu/abs/2019A%26A...622A...1S/abstract">Shimwell et al. 2018</a>) surveys the **HETDEX** field. 
 
-The source detection in LoTSS-DR1 is performed using the Python Blob Detector and Source Finder Software (**PyBDSF**, Mohan et al. 2015) which fits Gaussians to pixel islands. This generates components rather than true sources. For that reason, the identification of LOFAR radio sources as well as the cross-matching with optical counterparts (Pan-STARRS and WISE) was achieved using a combination of statistical likelihood ratio techniques and visual inspection via a private LOFAR Galaxy Zoo (LGZ) classification project (described in Williams et al. 2018).
+A full list of publications and LoTSS-DR1 data products can be found in the <a href="https://www.lofar-surveys.org"> LOFAR surveys website<a>.
 
-The LoTSS-DR1 connection between each raw PyBDSF source and the final optical associations (or lack of association), is explained in a Jupyter notebook (avalilable in the **Downloads** section). The input and output catalogues are explained next. 
+The source detection in LoTSS-DR1 is performed using the Python Blob Detector and Source Finder Software (**PyBDSF**, Mohan et al. 2015) which fits Gaussians to pixel islands. This generates components rather than true sources. For that reason, the identification of LOFAR radio sources as well as the cross-matching with optical counterparts (Pan-STARRS and WISE) was achieved using a combination of statistical likelihood ratio techniques and visual inspection via a private LOFAR Galaxy Zoo (LGZ) classification project (described in <a href="https://ui.adsabs.harvard.edu/abs/2019A%26A...622A...2W/abstract">Williams et al. 2018</a>).  
+
+The LoTSS-DR1 correspondence between each raw PyBDSF source and the final optical associations (or lack of association), is explained in a Jupyter notebook (avalilable in the **Downloads** section). The input and output catalogues are explained next. 
 
 ***
 
@@ -15,9 +17,9 @@ Here we use the **version 1.2 of the optical and components catalogues, version 
 
 ## Input catalogues
 
-* PyBDSF raw catalogue (*LOFAR_HBA_T1_DR1_catalog_v0.9.srl.fixed.fits*)
-* PyBDSF components catalogue (*LOFAR_HBA_T1_DR1_merge_ID_v1.2.comp.fits*)
-* Optical associations catalogue: Pan-STARRS and WISE (*LOFAR_HBA_T1_DR1_merge_ID_optical_f_v1.2.fits*)
+* <a href="https://www.lofar-surveys.org/public/LOFAR_HBA_T1_DR1_catalog_v1.0.srl.fits">Radio source catalogue<a> (PyBDSF raw catalogue) (*LOFAR_HBA_T1_DR1_catalog_v0.9.srl.fixed.fits*) 
+* <a href="https://www.lofar-surveys.org/public/LOFAR_HBA_T1_DR1_merge_ID_v1.2.comp.fits">PyBDSF components catalogue<a> (*LOFAR_HBA_T1_DR1_merge_ID_v1.2.comp.fits*) 
+*  <a href="https://www.lofar-surveys.org/public/LOFAR_HBA_T1_DR1_merge_ID_optical_f_v1.2b_restframe.fits">HETDEX associations and optical IDs catalogue<a>(*LOFAR_HBA_T1_DR1_merge_ID_optical_f_v1.2.fits*)
 * Artifacts catalogue (*LOFAR_HBA_T1_DR1_merge_ID_v1.1.art.fits*)
 * Gaussian catalogue (*LOFAR_HBA_T1_DR1_catalog_v0.99.gaus.fits*)
 
@@ -41,7 +43,7 @@ The notebook **_PyBDSF_DR1_associations.ipynb_**. creates an output table with 3
 
 ### Output Flags
 
-| Category                 | Selection                               | Flag  | nr PyBDSF*    | nr optical*   | nr entries |
+| Category                 | Selection                               | Flag  | nr PyBDSF     | nr optical    | nr entries |
 |:-------------------------|:----------------------------------------|:------|:--------------|---------------|------------|
 | Single sources           | Unique PyBDSF-optical correspondence    |   1   | 313161        | 313161        |313161      | 
 | Deblending problems      | Not deblended                           |   2   | 0             | 0             |0           |
@@ -49,12 +51,14 @@ The notebook **_PyBDSF_DR1_associations.ipynb_**. creates an output table with 3
 | Deblended sources        | Multiple PyBDSF-optical correspondences |   4   | 880           | 1750          |1750        |
 | Multi-component PyBDSF   | Merged PyBDSF-optical correspondences   |   8   | 9007          | 3565          |9007        |
 | Multi + not deblended    | combination of flags 8 and 2            |   10  | 39            | 31            |39          |
-| Multi + deblended        | Combination of flags 8 and 4            |   12  | 26            | 30            |30          |
+| Multi + deblended        | Combination of flags 8 and 4            |   12  | 26*           | 30*           |30          |
 | Artifacts                | Artifact catalogue                      |   16  | 2543          | 0             |2543        |
 | Artifacts                | PyBDSF missing in the optical catalogue |   32  | 48            | 0             |48          |
-| **TOTAL**                |                   -                     |   -   | 325694        | 318521        |326591      |
+| **TOTAL**                |                   -                     |   -   | 325717        | 318550        |326591      |
+| **TOTAL UNIQUE**         |                   -                     |   -   | 325694        | 318520        |326591      |
 
-(*) Refers to unique values
+(*) All the values in the table refers to unique values, with the exception of sources with flag 12. Here, **23** PyBDSF sources (out of the 26) have both flag 12 and 4. This is because one of the components of these PyBDSFs was deblended (which got flag 4) and the other was associated with other PyBDSF (which got flag 12). The **30** optical correspondences are shared with sources with flag 10, and therefore they are repeated. 
+More details below. 
 
 ***
 
@@ -92,7 +96,8 @@ Notes:
 
 #### Sources that were both deblended and have multi PyBDSF components
 
-Deblended sources where multiple PyBDSF components were associated after deblending (30 optical sources, 26 PyBDSFs, `flag 12`, 30 entries on the table. The selection of these sources is made in the section 'Deblended sources' of the notebook.
+Deblended sources where multiple PyBDSF components were associated after deblending (
+optical sources, 26 PyBDSFs, `flag 12`, 30 entries on the table. The selection of these sources is made in the section 'Deblended sources' of the notebook.
 
 Notes: 
 * When a PyBDSF source has flag 12 and is deblended into 2 or 3 optical sources (which happens only for 2 and 1 PyBDSFs respectively), it shares only an optical source with another PyBDSF with flag 10. The remaining 23 PyBSDFs flagged with 12 share an optical source with another PyBDSF flagged with 4. 
